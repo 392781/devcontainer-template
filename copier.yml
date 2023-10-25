@@ -17,12 +17,12 @@ use_vscode_ext:
 
 use_jupyterlab:
     type: bool
-    help: Install Jupyter Lab? Jupyter Lab is optional if using VS Code and Python extensions for development.
+    help: Install Jupyter Lab? Jupyter Lab is optional if using VS Code as your editor.
     default: no
 
 use_rstudio:
     type: bool
-    help: Install Rstudio? Rstudio is optional if using VS Code and R extensions for development.
+    help: Install Rstudio? Rstudio is optional if using VS Code as your editor.
     default: no
     when: "{{ 'R' in dev_language }}"
 
