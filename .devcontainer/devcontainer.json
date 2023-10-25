@@ -1,27 +1,34 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-in-docker
 {
-    "name": "Devcontainer Template",
-    "build": {
-        "dockerfile": "Dockerfile"
-    },
-	"workspaceMount": "source=${localWorkspaceFolder},target=/home/jovyan/work,type=bind",
-	"workspaceFolder": "/home/jovyan/work",
-	"remoteEnv": {
-		"DOCKER_STACKS_JUPYTER_CMD": "server"
+	"name": "Docker in Docker",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	
+	"build": {
+		"dockerfile": "Dockerfile"
 	},
 
-    "customizations": {
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"version": "latest",
+			"enableNonRootDocker": "true",
+			"moby": "true"
+		},
+		"ghcr.io/devcontainers/features/common-utils:2": {}
+	},
 
-		"vscode": {
-			"settings": {
-				"python.defaultInterpreterPath": "/opt/conda/bin/python"
-			},
-			"extensions": [
-				"github.copilot",
-				"ms-python.python",
-				"ms-toolsai.jupyter",
-				"ms-toolsai.jupyter-keymap",
-				"analytic-signal.preview-pdf"
-			]
-		}
-	}
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace/devcontainer-template,type=bind",
+	"workspaceFolder": "/workspace"
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "docker --version",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
 }
