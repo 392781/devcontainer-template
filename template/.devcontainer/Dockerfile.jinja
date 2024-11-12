@@ -1,9 +1,15 @@
+{% if use_gpu == 'no' %}
 {% if dev_language == 'R and Python' %}
-FROM quay.io/jupyter/datascience-notebook:r-4.3.1
+FROM quay.io/jupyter/datascience-notebook:r-4.3.3
 {% elif dev_language == 'Python' %}
 FROM quay.io/jupyter/scipy-notebook:python-3.11.6
 {% elif dev_language == 'R' %}
-FROM quay.io/jupyter/r-notebook:r-4.3.1
+FROM quay.io/jupyter/r-notebook:r-4.3.3
+{% endif %}
+{% elif use_gpu == 'pytorch' %}
+FROM quay.io/jupyter/pytorch-notebook:cuda12-python-3.11.6
+{% elif use_gpu == 'tensorflow' %}
+FROM quay.io/jupyter/tensorflow-notebook:cuda-python-3.11.6 
 {% endif %}
 
 ### Environment variables

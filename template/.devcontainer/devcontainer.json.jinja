@@ -2,7 +2,7 @@
     "name": "{{ project_name }}",
     "build": {
         "dockerfile": "Dockerfile",
-        "options": ["--format=docker"]        // required for Podman, remove line if using Docker
+        "options": ["--format=docker"] // required for Podman, remove line if using Docker
     },
 
     "updateRemoteUserUID": false,
@@ -15,9 +15,14 @@
 
     "runArgs": [
         "--user=1000:100",
-        "--userns=keep-id:uid=1000,gid=100",  // required for Podman, remove line if using Docker
+        "--userns=keep-id:uid=1000,gid=100", // required for Podman, remove line if using Docker
+        {% if use_gpu == 'no' %}
+        "--name={{ project_name }}" // needs to be unique
+        {% elif use_gpu == 'pytorch' or use_gpu == 'tensorflow' %}
         "--name={{ project_name }}", // needs to be unique
-        "--hostname={{ project_name }}_container" // needs to be unique
+        "--security-opt=label=disable",
+        "--device=nvidia.com/gpu=all"
+        {% endif %}
     ],
 
     "forwardPorts": [8888],
